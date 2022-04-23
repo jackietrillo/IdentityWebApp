@@ -1,0 +1,33 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p id="policy">@Model.DefaultPolicy</p>
+
+<button type="button" id="btn-custom-policy" class="btn btn-primary" >Custom Policy</button> 
+
+@section Scripts {
+<script>
+
+    $(document).ready(function(){
+
+        $('#btn-custom-policy').click(function(){
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Page("Privacy", "CustomPolicy")',
+                success: function (result) {
+                    $('#policy').html(result.policy);
+                },
+                error: function (result) {
+                    alert(result);
+                }
+            });
+        });
+    });
+    
+</script>
+}
+
